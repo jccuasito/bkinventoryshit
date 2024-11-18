@@ -1,0 +1,567 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.dashboard-container {
+    display: flex;
+    height: 100vh; /* Full height of the viewport */
+    width: 100vw; /* Full width of the viewport */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Default width when collapsed */
+    height: 100%;
+    background: #111;
+    color: #fff;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    z-index: 999; /* Ensure it's always on top */
+}
+
+/* Expanded sidebar when hovered */
+.sidebar:hover {
+    width: 200px; /* Expanded width */
+}
+
+/* Sidebar Arrow */
+.sidebar .toggle-arrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 60px;
+    height: 30px;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Remove background color for the arrow toggle */
+.sidebar .toggle-arrow:hover {
+    background-color: transparent; /* No background when hovered */
+}
+
+/* Arrow itself */
+.sidebar .toggle-arrow .arrow {
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+}
+
+/* Sidebar Logo */
+.sidebar .logo {
+    text-align: center;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center; /* Center logo horizontally */
+    align-items: center; /* Center logo vertically */
+    height: 60px; /* Ensure space for the logo in collapsed state */
+}
+
+.sidebar .logo img {
+    width: 100%; /* Make the image stretch to fill the container */
+    max-width: 50px; /* Max width to prevent excessive stretching */
+    object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+}
+
+/* Sidebar Navigation */
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: background 0.3s ease-in-out, color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sidebar nav ul li a img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.sidebar nav ul li a span {
+    font-size: 14px;
+    display: none; /* Hide text by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:hover nav ul li a span {
+    display: block; /* Show text on hover */
+    opacity: 1;
+}
+
+/* Logout Link */
+.sidebar .logout {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar .logout a {
+    text-decoration: none;
+    color: #ff5252;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    transition: background 0.3s ease-in-out, color 0.3s;
+}
+
+.sidebar .logout a:hover {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sidebar .logout a img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.sidebar .logout a span {
+    font-size: 14px;
+    display: none; /* Hide text by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:hover .logout a span {
+    display: block; /* Show text on hover */
+    opacity: 1;
+}
+
+/* Main Content */
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 60px; /* Default space for sidebar */
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Adjust the main content when sidebar is expanded */
+.sidebar:hover ~ .main-content {
+    margin-left: 200px; /* Make space for expanded sidebar */
+}
+
+/* Adjust the main content padding when sidebar is collapsed */
+.sidebar:hover ~ .main-content {
+    margin-left: 200px; /* Keep the sidebar space */
+}
+
+/* When sidebar is collapsed, content is positioned closer to the edge */
+.main-content {
+    margin-left: 60px; /* Adjust for collapsed sidebar */
+}
+
+
+/* Header */
+.dashboard-header {
+    background-color: #D25858;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    position: fixed;
+    width: calc(100% - 60px);
+    top: 0;
+    left: 60px; /* Align header to the right of the sidebar */
+    z-index: 2;
+}
+
+/* Adjust header when sidebar is expanded */
+.sidebar:hover ~ .dashboard-header {
+    width: calc(100% - 200px);
+    left: 200px;
+}
+
+/* Main content padding adjustment for header */
+.main-content {
+    margin-top: 70px; /* Account for header height */
+}
+
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 60px; /* Default space for sidebar */
+    margin-top: 1px; /* Space for header */
+    height: calc(100vh - 70px); /* Subtract header height */
+    overflow: hidden; /* No scrollbars */
+    transition: margin-left 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Adjust the main content when the sidebar is expanded */
+.sidebar:hover ~ .main-content {
+    margin-left: 200px; /* Expanded space for sidebar */
+    height: calc(100vh - 70px); /* Keep content height dynamic */
+}
+
+/* Make sure content height is correct when the sidebar is collapsed */
+.sidebar:not(:hover) ~ .main-content {
+    margin-left: 60px; /* Default space for sidebar */
+    height: calc(100vh - 70px); /* Correct height when sidebar is collapsed */
+}
+
+/* Ensure the main content is not pushed off the screen on small devices */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        height: calc(100vh - 70px); /* Keep content height for small screens */
+    }
+
+    .sidebar:hover ~ .main-content {
+        margin-left: 0; /* Prevent content shifting on small screens */
+        height: calc(100vh - 70px); /* Adjust content height for mobile */
+    }
+}
+
+
+/* Ensure header adjusts properly with sidebar expansion/collapse */
+.dashboard-header {
+    position: fixed;
+    top: 0;
+    left: 60px; /* Align with sidebar when expanded */
+    width: calc(100% - 60px); /* Adjust width to avoid overlap */
+    z-index: 2;
+    transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* Adjust header width when sidebar is expanded */
+.sidebar:hover ~ .dashboard-header {
+    left: 200px; /* Move header to the right when sidebar is expanded */
+    width: calc(100% - 200px); /* Adjust width to accommodate the expanded sidebar */
+}
+
+
+
+/* Ensure no layout shift occurs on smaller screens */
+@media (max-width: 768px) {
+    /* When on small screens, reset margins for main content */
+    .main-content {
+        margin-left: 0;
+    }
+
+    /* Make sure the sidebar is hidden on smaller screens by default */
+    .sidebar {
+        width: 0;
+    }
+
+    /* If sidebar is expanded on mobile, adjust content layout */
+    .sidebar.sidebar-expanded {
+        width: 200px;
+    }
+
+    .sidebar.sidebar-expanded ~ .main-content {
+        margin-left: 0; /* No need for margin on small screens */
+    }
+}
+
+
+
+/* Dashboard content */
+.dashboard-content {
+    background-color: #fff;
+    padding: 20px;
+    height: calc(100vh - 70px); /* Adjust height to fill remaining space below the header */
+    overflow-y: auto; /* Add vertical scroll if content overflows */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0; /* Remove the margin when on small screens */
+    }
+
+    .sidebar:hover ~ .main-content {
+        margin-left: 0; /* Prevent content shifting on small screens */
+    }
+
+    /* Hide the sidebar by default on mobile devices */
+    .sidebar {
+        width: 0; /* Collapse sidebar completely */
+        display: none; /* Hide sidebar */
+    }
+
+    /* Show the toggle button for the sidebar */
+    .sidebar .toggle-arrow {
+        display: flex; /* Make the arrow visible */
+    }
+
+    /* Ensure main content takes up full space on mobile */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Show sidebar when the class 'sidebar-expanded' is added dynamically */
+    .sidebar.sidebar-expanded {
+        width: 200px; /* Show the expanded sidebar when toggled */
+        display: block;
+    }
+
+    /* Adjust header for mobile */
+    .dashboard-header {
+        width: 100%; /* Full width */
+        left: 0; /* Align header to the left */
+    }
+
+    .sidebar:hover ~ .dashboard-header {
+        width: 100%; /* Full width */
+        left: 0; /* Align header to the left */
+    }
+}
+
+/* When sidebar is toggled, show it on mobile */
+.sidebar.sidebar-expanded {
+    display: block;
+    width: 200px; /* Expanded width on mobile when active */
+    transition: width 0.3s ease-in-out; /* Smooth transition */
+}
+
+
+
+/* Sales Report Section */
+.sales-report h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 100px;
+}
+
+.report-buttons {
+    margin-bottom: 20px;
+}
+
+.report-btn {
+    background-color: #000;
+    color: #FFD357;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    transition: opacity 0.3s ease;
+    border-radius: 4px;
+    font-weight: bold;
+    
+}
+
+.report-btn.active {
+    opacity: 1; /* Fully visible */
+}
+
+.report-btn.inactive {
+    opacity: 0.75; /* Reduce visibility */
+}
+
+.report-btn:hover {
+    background-color: #FFD357;
+    color: #000;
+}
+
+.sales-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sales-box {
+    background-color: #FFD357;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+    text-align: center;
+}
+
+/* Styling for the sales history table */
+#salesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#salesTable th, #salesTable td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+#salesTable th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+#salesTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#salesTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: #FFD357;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #D25858;
+    color: white;
+}
+
+.pagination span {
+    padding: 8px 12px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Modal Background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    padding: 50px;
+    box-sizing: border-box;
+    overflow: auto; /* Enable scrolling if needed */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px; /* Rounded edges */
+    width: 50%; /* Adjust width to be smaller */
+    max-width: 500px; /* Max width */
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    /* Centering */
+    position: absolute;
+    top: 50%;  /* Vertically center */
+    left: 50%; /* Horizontally center */
+    transform: translate(-50%, -50%); /* Adjust for exact centering */
+}
+
+/* Modal Header */
+.modal-content h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Buttons */
+.modal-btn {
+    padding: 10px 15px;
+    background-color: #FFD357;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-btn:hover {
+    background-color: #D25858;
+}
+
+
+.report-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adds space between buttons */
+}
+
+.report-btn {
+    padding: 10px 20px;
+    background-color: #FFD357; /* Keep original color */
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.report-btn:hover {
+    background-color: #D25858; /* Keep original hover effect */
+}
+
+/* Keep download button style consistent */
+.reportdownload {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.reportdownload img {
+    margin-left: 5px; /* Slight space between the icon and button */
+}

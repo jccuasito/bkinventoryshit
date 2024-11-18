@@ -1,0 +1,755 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.dashboard-container {
+    display: flex;
+    height: 100vh; /* Full height of the viewport */
+    width: 100vw; /* Full width of the viewport */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Default width when collapsed */
+    height: 100%;
+    background: #111;
+    color: #fff;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    z-index: 999; /* Ensure it's always on top */
+}
+
+/* Expanded sidebar when hovered */
+.sidebar:hover {
+    width: 200px; /* Expanded width */
+}
+
+/* Sidebar Arrow */
+.sidebar .toggle-arrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 60px;
+    height: 30px;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Remove background color for the arrow toggle */
+.sidebar .toggle-arrow:hover {
+    background-color: transparent; /* No background when hovered */
+}
+
+/* Arrow itself */
+.sidebar .toggle-arrow .arrow {
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+}
+
+/* Sidebar Logo */
+.sidebar .logo {
+    text-align: center;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center; /* Center logo horizontally */
+    align-items: center; /* Center logo vertically */
+    height: 60px; /* Ensure space for the logo in collapsed state */
+}
+
+.sidebar .logo img {
+    width: 100%; /* Make the image stretch to fill the container */
+    max-width: 50px; /* Max width to prevent excessive stretching */
+    object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+}
+
+/* Sidebar Navigation */
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: background 0.3s ease-in-out, color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sidebar nav ul li a img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.sidebar nav ul li a span {
+    font-size: 14px;
+    display: none; /* Hide text by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:hover nav ul li a span {
+    display: block; /* Show text on hover */
+    opacity: 1;
+}
+
+/* Logout Link */
+.sidebar .logout {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar .logout a {
+    text-decoration: none;
+    color: #ff5252;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    transition: background 0.3s ease-in-out, color 0.3s;
+}
+
+.sidebar .logout a:hover {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sidebar .logout a img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.sidebar .logout a span {
+    font-size: 14px;
+    display: none; /* Hide text by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:hover .logout a span {
+    display: block; /* Show text on hover */
+    opacity: 1;
+}
+
+/* Main Content */
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 60px; /* Default space for sidebar */
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Adjust the main content when sidebar is expanded */
+.sidebar:hover ~ .main-content {
+    margin-left: 200px; /* Make space for expanded sidebar */
+}
+
+/* Adjust the main content padding when sidebar is collapsed */
+.sidebar:hover ~ .main-content {
+    margin-left: 200px; /* Keep the sidebar space */
+}
+
+/* When sidebar is collapsed, content is positioned closer to the edge */
+.main-content {
+    margin-left: 60px; /* Adjust for collapsed sidebar */
+}
+
+
+/* Header */
+.dashboard-header {
+    background-color: #D25858;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    position: fixed;
+    width: calc(100% - 60px);
+    top: 0;
+    left: 60px; /* Align header to the right of the sidebar */
+    z-index: 2;
+}
+
+/* Adjust header when sidebar is expanded */
+.sidebar:hover ~ .dashboard-header {
+    width: calc(100% - 200px);
+    left: 200px;
+}
+
+/* Main content padding adjustment for header */
+.main-content {
+    margin-top: 70px; /* Account for header height */
+}
+
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out; /* Smooth transition */
+    margin-left: 60px; /* Default space for sidebar when expanded */
+    margin-top: 20px;  /* Space for header */
+}
+
+/* When sidebar is collapsed, remove the margin-left */
+.sidebar:not(:hover) ~ .main-content {
+    margin-left: 20px; /* No margin when the sidebar is collapsed */
+}
+
+/* When sidebar is expanded, adjust the margin-left accordingly */
+.sidebar:hover ~ .main-content {
+    margin-left: 200px; /* Expanded sidebar */
+}
+
+/* Ensure header adjusts properly with sidebar expansion/collapse */
+.dashboard-header {
+    position: fixed;
+    top: 0;
+    left: 60px; /* Align with sidebar when expanded */
+    width: calc(100% - 60px); /* Adjust width to avoid overlap */
+    z-index: 2;
+    transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* Adjust header width when sidebar is expanded */
+.sidebar:hover ~ .dashboard-header {
+    left: 200px; /* Move header to the right when sidebar is expanded */
+    width: calc(100% - 200px); /* Adjust width to accommodate the expanded sidebar */
+}
+
+
+
+/* Ensure no layout shift occurs on smaller screens */
+@media (max-width: 768px) {
+    /* When on small screens, reset margins for main content */
+    .main-content {
+        margin-left: 0;
+    }
+
+    /* Make sure the sidebar is hidden on smaller screens by default */
+    .sidebar {
+        width: 0;
+    }
+
+    /* If sidebar is expanded on mobile, adjust content layout */
+    .sidebar.sidebar-expanded {
+        width: 200px;
+    }
+
+    .sidebar.sidebar-expanded ~ .main-content {
+        margin-left: 0; /* No need for margin on small screens */
+    }
+}
+
+
+
+/* Dashboard content */
+.dashboard-content {
+    background-color: #fff;
+    padding: 20px;
+    height: calc(100vh - 70px); /* Adjust height to fill remaining space below the header */
+    overflow-y: auto; /* Add vertical scroll if content overflows */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0; /* Remove the margin when on small screens */
+    }
+
+    .sidebar:hover ~ .main-content {
+        margin-left: 0; /* Prevent content shifting on small screens */
+    }
+
+    /* Hide the sidebar by default on mobile devices */
+    .sidebar {
+        width: 0; /* Collapse sidebar completely */
+        display: none; /* Hide sidebar */
+    }
+
+    /* Show the toggle button for the sidebar */
+    .sidebar .toggle-arrow {
+        display: flex; /* Make the arrow visible */
+    }
+
+    /* Ensure main content takes up full space on mobile */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Show sidebar when the class 'sidebar-expanded' is added dynamically */
+    .sidebar.sidebar-expanded {
+        width: 200px; /* Show the expanded sidebar when toggled */
+        display: block;
+    }
+
+    /* Adjust header for mobile */
+    .dashboard-header {
+        width: 100%; /* Full width */
+        left: 0; /* Align header to the left */
+    }
+
+    .sidebar:hover ~ .dashboard-header {
+        width: 100%; /* Full width */
+        left: 0; /* Align header to the left */
+    }
+}
+
+/* When sidebar is toggled, show it on mobile */
+.sidebar.sidebar-expanded {
+    display: block;
+    width: 200px; /* Expanded width on mobile when active */
+    transition: width 0.3s ease-in-out; /* Smooth transition */
+}
+
+
+/* Section Styling */
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* Scrollable content */
+.section {
+    padding: 20px;
+    overflow-y: auto;
+}
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #FFD357;
+    color: #1E1E1E;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+/* Red background for unavailable products */
+tr.not-available {
+    background-color: rgba(255, 0, 0, 0.25);
+}
+
+/* Status styles */
+.status.available {
+    color: green;
+    font-weight: normal;
+}
+
+.status.not-available {
+    color: red;
+    font-weight: normal;
+}
+
+.out-of-stock {
+    color: orange;
+    font-weight: normal;
+}
+
+tfoot td {
+    font-weight: bold;
+    text-align: right;
+}
+
+
+
+
+
+/* Total price summary styling */
+.total-summary {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.total-summary h3 {
+    color: #D25858;
+}
+
+.checkout-button {
+    display: inline-block;
+    width: 150px; /* Adjust the width as needed */
+    padding: 10px 20px; /* Adjust padding as needed */
+    text-align: center;
+    background-color: #1E1E1E; /* Adjust background color as needed */
+    color: #FFD357;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px; /* Adjust font size as needed */
+    cursor: pointer;
+    margin: 5px; /* Adjust margin as needed */
+}
+
+.view-cart:hover,
+.checkout-button:hover {
+    background-color: #FFD357;
+    color: #1E1E1E;
+}
+
+#searchBar {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 350px; /* Increased width */
+    font-size: 16px;
+}
+
+.search-sort-container {
+    display: flex;
+    justify-content: flex-start; /* Align the items to the left */
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#categorySort, #sizeSort {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #FFD357;
+    color: #1E1E1E;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#categorySort option, #sizeSort option {
+    background-color: #FFD357;
+    color: #1E1E1E;
+}
+
+/* Dropdown (Select) styles */
+select {
+    padding: 6px 10px; /* Smaller padding */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #1E1E1E;
+    font-size: 14px; /* Smaller font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+select:hover {
+    background-color: #dbb754; /* Optional: Change the select's background on hover */
+}
+
+/* Option elements inside the dropdown */
+select option {
+    background-color: #dbb754;
+    color: #1E1E1E;
+    padding: 6px 10px; /* Smaller padding for options */
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect on option elements */
+select option:hover {
+    background-color: #999999; /* Highlight color */
+    color: #1E1E1E; /* Text color on hover */
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content form {
+    margin-top: 20px;
+}
+
+.modal-content label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.modal-content select,
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.success-message {
+    margin-top: 20px;
+    color: green;
+    font-weight: bold;
+}
+
+/* Add this CSS to pos.css */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Add this CSS to pos.css */
+#receiptDetails {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+}
+
+#receiptDetails table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#receiptDetails table, #receiptDetails th, #receiptDetails td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#receiptDetails th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+#receiptDetails th, #receiptDetails td {
+    padding: 12px 15px;
+}
+
+#receiptDetails tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#receiptDetails tr:hover {
+    background-color: #f1f1f1;
+}
+
+#receiptDetails p {
+    margin: 10px 0;
+}
+
+/* General button styles */
+.styled-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #D25858; /* Red color */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button hover effect */
+.styled-button:hover {
+    background-color: #FF6F61; /* Lighter red */
+    transform: translateY(-2px); /* Slightly lift the button */
+}
+
+/* Button active (pressed) effect */
+.styled-button:active {
+    background-color: #C14444; /* Darker red */
+    transform: translateY(0); /* Return to original position */
+}
+
+
+/* Modal close button style */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling for the Amount Paid input */
+#customer_paid {
+    width: 150px; /* Set a smaller width for the input */
+    padding: 8px 12px; /* Smaller padding */
+    border: 1px solid #ddd; /* Light grey border */
+    border-radius: 4px; /* Subtle rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    font-size: 16px; /* Normal font size */
+    color: #333; /* Dark text for readability */
+    transition: border-color 0.3s ease; /* Smooth transition for border color change */
+}
+
+/* Focus effect when the input is active */
+#customer_paid:focus {
+    border-color: #ccc; /* Slightly darker border on focus */
+    background-color: #fff; /* White background on focus */
+    outline: none; /* Remove default outline */
+}
+
+table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Remove fixed max-height and allow for responsive height adjustment */
+#checkoutForm {
+    height: calc(100vh - 70px); /* Take full height of the viewport minus header */
+    overflow-y: auto;           /* Enable scrolling when content exceeds height */
+    padding-right: 10px;        /* Prevent any horizontal scroll */
+    box-sizing: border-box;     /* Ensure padding does not affect the height */
+}
+
+/* Allow dashboard content to fill available space */
+.dashboard-content.home-background {
+    overflow-y: auto;           /* Allow scrolling for the entire content */
+    height: calc(100vh - 70px);  /* Adjust height to fill remaining space below header */
+    display: flex;               /* Ensure the content inside takes available space */
+    flex-direction: column;      /* Stack the content vertically */
+}
+
+/* Main content should occupy space without affecting layout */
+.main-content {
+    margin-left: 350px;          /* Sidebar width */
+    padding-top: 70px;           /* Space for the fixed header */
+    flex-grow: 1;                /* Allow it to fill the available space */
+    overflow-y: auto;            /* Make the main content scrollable */
+    display: flex;               /* Allow for flexible layout */
+    flex-direction: column;      /* Stack the sections vertically */
+}

@@ -1,0 +1,322 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background: #F5F6FA;
+    color: #333;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    height: 100vh; /* Full height to ensure side and main content stretch the same */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Default width when collapsed */
+    height: 100%;
+    background: #111;
+    color: #fff;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    z-index: 999; /* Ensure it's always on top */
+}
+
+/* Expanded sidebar when hovered */
+.sidebar:hover {
+    width: 200px; /* Expanded width */
+}
+
+/* Sidebar Logo */
+.sidebar .logo {
+    text-align: center;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center; /* Center logo horizontally */
+    align-items: center; /* Center logo vertically */
+    height: 60px; /* Ensure space for the logo in collapsed state */
+}
+
+.sidebar .logo img {
+    width: 100%; /* Make the image stretch to fill the container */
+    max-width: 50px; /* Max width to prevent excessive stretching */
+    object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+}
+
+/* Sidebar Arrow */
+.sidebar .toggle-arrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 60px;
+    height: 30px;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Remove background color for the arrow toggle */
+.sidebar .toggle-arrow:hover {
+    background-color: transparent; /* No background when hovered */
+}
+
+/* Arrow itself */
+.sidebar .toggle-arrow .arrow {
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+}
+
+/* Sidebar Navigation */
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: background 0.3s ease-in-out, color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sidebar nav ul li a img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.sidebar nav ul li a span {
+    font-size: 14px;
+    display: none; /* Hide text by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:hover nav ul li a span {
+    display: block; /* Show text on hover */
+    opacity: 1;
+}
+
+.sidebar .logout {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar .logout a {
+    text-decoration: none;
+    color: #ff5252;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    transition: background 0.3s ease-in-out, color 0.3s;
+}
+
+.sidebar .logout a:hover {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sidebar .logout a img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.sidebar .logout a span {
+    font-size: 14px;
+    display: none; /* Hide text by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:hover .logout a span {
+    display: block; /* Show text on hover */
+    opacity: 1;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 60px; /* Default space for sidebar */
+    margin-top: 70px; /* Matches the header height */
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar:hover ~ .main-content {
+    margin-left: 200px; /* Adjust to match the expanded sidebar width */
+}
+
+/* Header */
+.dashboard-header {
+    background-color: #D25858;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    position: fixed;
+    height: 80px; /* Fixed height for the header */
+    width: calc(100% - 60px); /* Adjust for sidebar width */
+    top: 0;
+    left: 60px; /* Align header to the right of the sidebar */
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better separation */
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px; /* Reduced padding */
+    text-align: left;
+}
+
+table th {
+    background-color: #FFD357;
+    color: #1E1E1E;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+/* Action buttons styling */
+table td button {
+    background-color: #D25858;
+    color: white;
+    border: none;
+    padding: 6px 12px; /* Reduced padding */
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 8px; /* Added spacing between buttons */
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+table td button:hover {
+    background-color: #B84141;
+}
+
+/* Action buttons container (to align them horizontally) */
+table td .action-buttons {
+    display: flex;
+    gap: 8px; /* Space between buttons */
+    justify-content: flex-start; /* Align buttons to the left */
+}
+
+/* Add User Button */
+#addUserBtn {
+    background-color: #FFD357;
+    color: #1E1E1E;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-bottom: 20px;
+    margin-left: 1px; /* Aligns button to the right */
+}
+
+#addUserBtn:hover {
+    background-color: #FFC107;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Center the modal */
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#userForm label {
+    display: block;
+    margin-top: 12px;
+    color: #1E1E1E;
+}
+
+#userForm input, #userForm select, #userForm button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+#userForm button {
+    background-color: #FFD357;
+    color: #1E1E1E;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#userForm button:hover {
+    background-color: #FFC107;
+}

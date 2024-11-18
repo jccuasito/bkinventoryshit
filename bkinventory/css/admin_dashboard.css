@@ -1,0 +1,350 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background: #F5F6FA;
+    color: #333;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Default width when collapsed */
+    height: 100%;
+    background: #111;
+    color: #fff;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    z-index: 999; /* Ensure it's always on top */
+}
+
+/* Expanded sidebar when hovered */
+.sidebar:hover {
+    width: 200px; /* Expanded width */
+}
+
+/* Sidebar Logo */
+.sidebar .logo {
+    text-align: center;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center; /* Center logo horizontally */
+    align-items: center; /* Center logo vertically */
+    height: 60px; /* Ensure space for the logo in collapsed state */
+}
+
+.sidebar .logo img {
+    width: 100%; /* Make the image stretch to fill the container */
+    max-width: 50px; /* Max width to prevent excessive stretching */
+    object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+}
+
+/* Sidebar Arrow */
+.sidebar .toggle-arrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 60px;
+    height: 30px;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Remove background color for the arrow toggle */
+.sidebar .toggle-arrow:hover {
+    background-color: transparent; /* No background when hovered */
+}
+
+/* Arrow itself */
+.sidebar .toggle-arrow .arrow {
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+}
+
+/* Sidebar Navigation */
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: background 0.3s ease-in-out, color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sidebar nav ul li a img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.sidebar nav ul li a span {
+    font-size: 14px;
+    display: none; /* Hide text by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:hover nav ul li a span {
+    display: block; /* Show text on hover */
+    opacity: 1;
+}
+
+.sidebar .logout {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar .logout a {
+    text-decoration: none;
+    color: #ff5252;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    transition: background 0.3s ease-in-out, color 0.3s;
+}
+
+.sidebar .logout a:hover {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sidebar .logout a img {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.sidebar .logout a span {
+    font-size: 14px;
+    display: none; /* Hide text by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:hover .logout a span {
+    display: block; /* Show text on hover */
+    opacity: 1;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 60px; /* Ensure space for the collapsed sidebar */
+    transition: margin-left 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Shift the main content when sidebar is expanded */
+.sidebar:hover ~ .main-content {
+    margin-left: 200px; /* Make space for expanded sidebar */
+}
+
+/* Styling for the user profile in the header */
+.welcome-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    margin-right: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* For fallback when there's no profile picture */
+.profile-pic.default {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f2f2f2;
+    text-align: center;
+    line-height: 40px;
+    color: #555;
+    font-weight: bold;
+}
+
+
+/* Stats Section */
+.stats-grid {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    flex: 1;
+    padding: 20px;
+    color: #FFF;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card.blue {
+    background: #4a90e2;
+}
+
+.stat-card.purple {
+    background: #9B59B6;
+}
+
+.stat-card.green {
+    background: #2ECC71;
+}
+
+.stat-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Add smooth fading effect for the stats */
+.stat-card p {
+    font-size: 36px;
+    font-weight: bold;
+    transition: opacity 1s ease-out;
+    opacity: 0;
+}
+
+.stat-card.show p {
+    opacity: 1;
+}
+
+
+/* Row Sections */
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    flex: 1;
+    background: #FFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Best Sellers and Recent Transactions text colors */
+.card h3 {
+    color: #333;
+}
+
+.card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.card ul li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stats-grid {
+        flex-direction: column;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .main-content {
+        margin-left: 0; /* Remove the margin when on small screens */
+    }
+
+    .sidebar:hover ~ .main-content {
+        margin-left: 0; /* Prevent content shifting on small screens */
+    }
+}
+
+/* Global Styles for mobile */
+@media (max-width: 768px) {
+    /* Hide the sidebar by default on mobile devices */
+    .sidebar {
+        width: 0; /* Collapse sidebar completely */
+        display: none; /* Hide sidebar */
+    }
+
+    /* Show the toggle button for the sidebar */
+    .sidebar .toggle-arrow {
+        display: flex; /* Make the arrow visible */
+    }
+
+    /* Ensure main content takes up full space on mobile */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Show sidebar when the class 'sidebar-expanded' is added dynamically */
+    .sidebar.sidebar-expanded {
+        width: 200px; /* Show the expanded sidebar when toggled */
+        display: block;
+    }
+
+    /* Adjust the welcome header */
+    .welcome-header {
+        padding-left: 20px; /* Make sure it’s not hidden behind the collapsed sidebar */
+    }
+}
+
+/* When sidebar is toggled, show it on mobile */
+.sidebar.sidebar-expanded {
+    display: block;
+    width: 200px; /* Expanded width on mobile when active */
+    transition: width 0.3s ease-in-out; /* Smooth transition */
+}
